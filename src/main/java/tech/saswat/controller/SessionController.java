@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import tech.saswat.entity.AppMember;
@@ -30,7 +31,19 @@ public class SessionController {
 	public ResponseEntity<MemberAuthenticationResponse> appMemberLogin(@RequestBody AppMember appMember) {
 		
 		System.out.println(appMember);
-		return new ResponseEntity<MemberAuthenticationResponse>(sessionService.appMemberLogin(appMember), HttpStatus.OK);
+		
+		MemberAuthenticationResponse mar = sessionService.appMemberLogin(appMember);
+		if(mar.isAuthenticated()) {
+			return new ResponseEntity<MemberAuthenticationResponse>(mar, HttpStatus.OK);
+		}
+			return new ResponseEntity<MemberAuthenticationResponse>(mar, HttpStatus.UNAUTHORIZED);
+		
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/appMembers")
+	public ResponseEntity<Iterable<AppMember>> getAppMembers() {
+		
+		return new ResponseEntity<Iterable<AppMember>>(sessionService.getAppMembers(), HttpStatus.OK);
 	}
 	
 }

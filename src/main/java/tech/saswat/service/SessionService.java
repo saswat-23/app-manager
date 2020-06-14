@@ -16,15 +16,14 @@ public class SessionService {
 	
 	public MemberAuthenticationResponse appMemberLogin(AppMember appMember) {
 		
-		//appMember = null;
-		
 		AppMember member = appMemberRepo.findByUnameAndPasswordAndProgram(appMember.getUname(), appMember.getPassword(), appMember.getProgram());
 		MemberAuthenticationResponse maResponse = new MemberAuthenticationResponse(member);
-		
-		System.out.println("AppMember is: "+maResponse);
-		
 		return maResponse;
 		
+	}
+	
+	public Iterable<AppMember> getAppMembers() {
 		
+		return appMemberRepo.findAll();
 	}
 }

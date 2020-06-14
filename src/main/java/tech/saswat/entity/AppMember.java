@@ -1,6 +1,7 @@
 package tech.saswat.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class AppMember {
 	private String status;
 	
 	@Column(name = "updt_at")
-	private Timestamp updtAt;
+	private Date updtAt;
 
 	public int getSl() {
 		return sl;
@@ -65,7 +66,7 @@ public class AppMember {
 		this.status = status;
 	}
 
-	public Timestamp getUpdtAt() {
+	public Date getUpdtAt() {
 		return updtAt;
 	}
 
